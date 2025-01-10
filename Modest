@@ -1,1 +1,57 @@
+-- Kiddions Modest | Cali Shootout Script Hub with Sunset Theme
 
+local gameId = 12077443856 -- Target Game ID
+
+if game.GameId ~= gameId then
+    return print("This script hub is not for this game!")
+end
+
+-- Create GUI
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local ExecuteButton = Instance.new("TextButton")
+
+-- Parent the GUI to the player's GUI
+ScreenGui.Parent = game.CoreGui
+
+-- Sunset Theme Colors
+local sunsetBackground = Color3.new(0.9, 0.5, 0.2) -- Orange
+local sunsetButton = Color3.new(0.8, 0.4, 0.6) -- Pinkish
+local sunsetText = Color3.new(1, 1, 0.8) -- Light Yellow
+local frameBorderColor = Color3.new(0.6, 0.3, 0.8) -- Purple
+
+-- Frame Properties
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = sunsetBackground
+Frame.Position = UDim2.new(0.3, 0, 0.3, 0)
+Frame.Size = UDim2.new(0.4, 0, 0.4, 0)
+Frame.BorderColor3 = frameBorderColor
+Frame.BorderSizePixel = 2
+
+-- Title Properties
+Title.Parent = Frame
+Title.Text = "Kiddions Modest | Cali Shootout"
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 24
+Title.TextColor3 = sunsetText
+Title.Size = UDim2.new(1, 0, 0.2, 0)
+Title.BackgroundTransparency = 1 -- Transparent background for the title
+
+-- Execute Button Properties
+ExecuteButton.Parent = Frame
+ExecuteButton.Text = "Execute Script"
+ExecuteButton.Font = Enum.Font.SourceSans
+ExecuteButton.TextSize = 18
+ExecuteButton.BackgroundColor3 = sunsetButton
+ExecuteButton.TextColor3 = sunsetText
+ExecuteButton.Position = UDim2.new(0.25, 0, 0.6, 0)
+ExecuteButton.Size = UDim2.new(0.5, 0, 0.2, 0)
+ExecuteButton.BorderColor3 = frameBorderColor
+ExecuteButton.BorderSizePixel = 1
+
+-- Button Functionality
+ExecuteButton.MouseButton1Click:Connect(function()
+    print("Script executed successfully!")
+    -- Add your custom script below
+end)
