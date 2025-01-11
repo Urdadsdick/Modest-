@@ -15,13 +15,13 @@ local Window = OrionLib:MakeWindow({
     ConfigFolder = "KiddionsModest"
 })
 
--- Notify User
+-- Notify User Immediately
 OrionLib:MakeNotification({
-    Name = "Loaded",
-    Content = "Kiddions Modest | Cali Shootout script loaded successfully.",
+    Name = "Script Executed",
+    Content = "Kiddions Modest | Cali Shootout has been executed successfully.",
     Image = "rbxassetid://4483345998", -- Optional Icon
     Time = 5
 })
 
--- Initialize Orion Library
+-- Auto-Execute the GUI
 OrionLib:Init()
