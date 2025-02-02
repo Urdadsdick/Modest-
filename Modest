@@ -1,24 +1,37 @@
-then 
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "NFTG | goated  ", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local GameID = game.GameId
 
-local Tab = Window:MakeTab({
-	Name = "aimbot",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
+print("Running universal script in game ID:", GameID)
 
---[[
-Name = <string> - The name of the tab.
-Icon = <string> - The icon of the tab.
-PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
-]]
-
-
-
-
-
-
-
+-- Dynamic player health detection
+local function getHealth()
+    local humanoid = Character:FindFirstChildOfClass("Humanoid")
+    return humanoid and humanoid.Health or nil
 end
-OrionLib:Init()
+
+-- Example: Detecting UI elements dynamically
+local function findUIElements()
+    local ScreenGui = LocalPlayer:FindFirstChildOfClass("PlayerGui")
+    if ScreenGui then
+        for _, item in pairs(ScreenGui:GetDescendants()) do
+            if item:IsA("TextButton") then
+                print("Detected UI Button:", item.Name)
+            end
+        end
+    end
+end
+
+-- Example: Custom behavior based on Game ID
+if GameID == 123456789 then
+    print("Special features enabled for this game!")
+elseif GameID == 987654321 then
+    print("Different behavior for this game!")
+else
+    print("Running default universal features.")
+end
+
+-- Call functions dynamically
+findUIElements()
+print("Player Health:", getHealth())
