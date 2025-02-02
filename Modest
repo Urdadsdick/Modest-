@@ -1,17 +1,35 @@
+-- Wait for game to fully load
+repeat task.wait() until game:IsLoaded()
+
+-- Services
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local GameID = game.GameId
 
-print("Running universal script in game ID:", GameID)
+-- Load Orion UI Library
+local success, OrionLib = pcall(function()
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
+end)
 
--- Dynamic player health detection
-local function getHealth()
-    local humanoid = Character:FindFirstChildOfClass("Humanoid")
-    return humanoid and humanoid.Health or nil
+if not success then
+    warn("Failed to load Orion UI Library.")
+    return
 end
 
--- Example: Detecting UI elements dynamically
+-- UI Setup
+local Window = OrionLib:MakeWindow({
+    Name = "Universal Script",
+    HidePremium = false,
+    SaveConfig = false
+})
+
+-- Functions
+local function getHealth()
+    local humanoid = Character:FindFirstChildOfClass("Humanoid")
+    return humanoid and humanoid.Health or "No Humanoid Found"
+end
+
 local function findUIElements()
     local ScreenGui = LocalPlayer:FindFirstChildOfClass("PlayerGui")
     if ScreenGui then
@@ -23,7 +41,7 @@ local function findUIElements()
     end
 end
 
--- Example: Custom behavior based on Game ID
+-- Custom Game Behavior
 if GameID == 123456789 then
     print("Special features enabled for this game!")
 elseif GameID == 987654321 then
@@ -32,6 +50,21 @@ else
     print("Running default universal features.")
 end
 
--- Call functions dynamically
-findUIElements()
-print("Player Health:", getHealth())
+-- UI Buttons
+local MainTab = Window:MakeTab({ Name = "Main", Icon = "rbxassetid://4483345998", PremiumOnly = false })
+
+MainTab:AddButton({
+    Name = "Print Player Health",
+    Callback = function()
+        print("Player Health:", getHealth())
+    end
+})
+
+MainTab:AddButton({
+    Name = "Find UI Elements",
+    Callback = function()
+        findUIElements()
+    end
+})
+
+OrionLib:Init()
